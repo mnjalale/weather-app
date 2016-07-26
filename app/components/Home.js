@@ -1,9 +1,11 @@
-var React = require('react');
+import React from 'react';
+import classnames from 'classnames'
 
 function Home(props){
+    let classes = classnames('home-component');
     return(
-        <div>Home</div>
+        <div className={classes}>Home</div>
     )
 }
 
-module.exports=Home;
+export default Home;

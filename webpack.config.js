@@ -3,10 +3,14 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     template: __dirname + '/app/index.html',
     filename: 'index.html',
     inject: 'body'
-})
+});
+
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = {
     entry:[
+        'babel-polyfill',
         './app/index.js'
     ],
     output:{
@@ -15,8 +19,12 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test:/\.js$/,exclude:/node_modules/,loader:"babel-loader"}
+            {test:/\.js$/,exclude:/node_modules/,loader:"babel-loader"},
+            {test: /\.scss$/, loader: ExtractTextPlugin.extract('css!sass')}
         ]
     },
-    plugins: [HtmlWebpackPluginConfig]
+    plugins: [
+        HtmlWebpackPluginConfig,
+        new ExtractTextPlugin('style.css')
+    ]
 }
